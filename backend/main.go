@@ -9,6 +9,7 @@ import (
     "TaskManagementSystem/config"
     "TaskManagementSystem/middleware"
     "TaskManagementSystem/handlers"
+    "TaskManagementSystem/routes"
 
 )
 
@@ -32,6 +33,9 @@ func main() {
         AllowOrigins: "*",
         AllowHeaders: "Origin, Content-Type, Accept, Authorization",
     }))
+
+    // Setup Routes
+    routes.SetupRoutes(app)
 
     // Public Routes
     auth := app.Group("/auth")
