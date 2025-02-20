@@ -103,7 +103,7 @@ export default function RegisterPage() {
         </div>
         <div className="text-center">
           <span className="text-gray-600">Already have an account? </span>
-          <Link href="/login" className="text-blue-500 hover:text-blue-700">
+          <Link href="login" className="text-blue-500 hover:text-blue-700">
             Sign In
           </Link>
         </div>
