@@ -11,9 +11,28 @@ import (
 
 // GetTasks retrieves all tasks for the authenticated user
 func GetTasks(c *fiber.Ctx) error {
-    // Get user ID from JWT token
-    userId := c.Locals("user_id").(string)
-    objID, _ := primitive.ObjectIDFromHex(userId)
+    // Get user ID from JWT token with nil check
+    userID := c.Locals("user_id")
+    if userID == nil {
+        return c.Status(401).JSON(fiber.Map{
+            "error": "Unauthorized: No user ID found",
+        })
+    }
+
+    // Convert to string with type assertion check
+    userIDStr, ok := userID.(string)
+    if !ok {
+        return c.Status(500).JSON(fiber.Map{
+            "error": "Internal server error: Invalid user ID format",
+        })
+    }
+
+    objID, err := primitive.ObjectIDFromHex(userIDStr)
+    if err != nil {
+        return c.Status(500).JSON(fiber.Map{
+            "error": "Internal server error: Invalid user ID format",
+        })
+    }
 
     // Query tasks
     cursor, err := config.DB.Collection("tasks").Find(c.Context(), bson.M{

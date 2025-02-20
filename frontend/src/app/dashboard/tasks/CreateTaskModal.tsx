@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 
+// Add a helper function at the top of your file
+const formatDateForInput = (date: Date) => {
+  return date.toISOString().slice(0, 16); // Format: "YYYY-MM-DDThh:mm"
+};
+
 interface CreateTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -9,9 +14,10 @@ interface CreateTaskModalProps {
 }
 
 export default function CreateTaskModal({ isOpen, onClose, onSubmit }: CreateTaskModalProps) {
+  // Initialize dueDate with current date-time
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate, setDueDate] = useState(formatDateForInput(new Date()));
   const [priority, setPriority] = useState("medium");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,7 +26,7 @@ export default function CreateTaskModal({ isOpen, onClose, onSubmit }: CreateTas
     const task = {
       title,
       description,
-      due_date: new Date(dueDate).toISOString(),
+      due_date: new Date(dueDate).toISOString(), // This will properly format for backend
       priority,
       status: "pending"
     };
@@ -30,7 +36,7 @@ export default function CreateTaskModal({ isOpen, onClose, onSubmit }: CreateTas
     // Reset form
     setTitle("");
     setDescription("");
-    setDueDate("");
+    setDueDate(formatDateForInput(new Date())); // Reset to current date-time
     setPriority("medium");
   };
 
@@ -74,6 +80,7 @@ export default function CreateTaskModal({ isOpen, onClose, onSubmit }: CreateTas
             <input
               type="datetime-local"
               value={dueDate}
+              min={formatDateForInput(new Date())} // Prevent past dates
               onChange={(e) => setDueDate(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required

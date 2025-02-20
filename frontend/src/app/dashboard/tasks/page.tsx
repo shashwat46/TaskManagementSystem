@@ -26,9 +26,14 @@ export default function TasksPage() {
       setLoading(true);
       try {
         const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No authentication token found");
+        }
+
         const response = await fetch("http://localhost:8080/api/tasks", {
           headers: {
             "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
           },
         });
 
@@ -39,7 +44,7 @@ export default function TasksPage() {
         const data = await response.json();
         setTasks(data);
       } catch (error) {
-        setError("Failed to fetch tasks");
+        setError("Failed to fetch tasks: " + (error instanceof Error ? error.message : "Unknown error"));
         console.error(error);
       } finally {
         setLoading(false);
