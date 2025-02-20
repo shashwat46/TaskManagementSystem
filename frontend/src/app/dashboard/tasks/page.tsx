@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import CreateTaskModal from "@/app/dashboard/tasks/CreateTaskModal";
 
-// Define the Task interface
 interface Task {
   id: string;
   title: string;
@@ -15,19 +15,22 @@ interface Task {
 }
 
 export default function TasksPage() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]); // Initialize as empty array
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
-  // Fetch tasks when component mounts
   useEffect(() => {
     const fetchTasks = async () => {
       setLoading(true);
+      setError("");
+      
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          throw new Error("No authentication token found");
+          router.push("/auth/login");
+          return;
         }
 
         const response = await fetch("http://localhost:8080/api/tasks", {
@@ -38,21 +41,27 @@ export default function TasksPage() {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch tasks");
+          if (response.status === 401) {
+            localStorage.removeItem("token");
+            router.push("/auth/login");
+            return;
+          }
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        setTasks(data);
+        console.log("Fetched tasks:", data);
+        setTasks(data || []); // Ensure we set an empty array if data is null
       } catch (error) {
+        console.error("Error fetching tasks:", error);
         setError("Failed to fetch tasks: " + (error instanceof Error ? error.message : "Unknown error"));
-        console.error(error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchTasks();
-  }, []);
+  }, [router]);
 
   const handleCreateTask = async (taskData: Partial<Task>) => {
     setLoading(true);
@@ -102,9 +111,8 @@ export default function TasksPage() {
           <button 
             onClick={() => setIsModalOpen(true)}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            disabled={loading}
           >
-            {loading ? 'Creating...' : 'Add New Task'}
+            Add New Task
           </button>
         </div>
 
@@ -124,7 +132,7 @@ export default function TasksPage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {tasks.map((task: Task) => (
+              {tasks.map((task) => (
                 <div 
                   key={task.id} 
                   className="border rounded-lg p-4 hover:shadow-md transition-shadow"
