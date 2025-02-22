@@ -22,8 +22,8 @@ export default function RegisterPage() {
         return;
       }
 
-      // Redirect to login on successful registration
-      router.push('auth/login');
+      // Fix: Update redirect path
+      router.push('/auth/login');
     } catch (err) {
       setError("Registration failed. Please try again.");
     } finally {
@@ -103,7 +103,8 @@ export default function RegisterPage() {
         </div>
         <div className="text-center">
           <span className="text-gray-600">Already have an account? </span>
-          <Link href="login" className="text-blue-500 hover:text-blue-700">
+          {/* Fix: Update link path */}
+          <Link href="/auth/login" className="text-blue-500 hover:text-blue-700">
             Sign In
           </Link>
         </div>
