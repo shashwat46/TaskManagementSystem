@@ -1,6 +1,14 @@
-# AI-Powered Task Management System (5 hours from start)
+# AI-Powered Task Management System
 
-I have developed a real-time task management system as part of my technical assessment for Zocket. Here is my proposed solution:
+## Live Demo
+- Frontend: [https://task-management-system-ecru.vercel.app/](https://task-management-system-ecru.vercel.app/)
+- Backend API: [https://taskmanagementsystem-production-8e99.up.railway.app](https://taskmanagementsystem-production-8e99.up.railway.app)
+
+## Deployment
+The application is deployed using:
+- Frontend: Vercel (Next.js optimized hosting)
+- Backend: Railway (Go server hosting)
+- Database: MongoDB Atlas
 
 ## Core Features Implemented
 
@@ -148,6 +156,7 @@ I'm excited about the potential of this project and look forward to developing i
 ## TL;DR
 
 ✅ **Core Backend & Frontend** implemented with authentication  
+✅ **Deployed & Live** on Vercel and Railway  
 🚧 **AI & Real-time features** planned and architected  
 🔜 **Next Steps:** AI integration, WebSockets, and cloud deployment
 
