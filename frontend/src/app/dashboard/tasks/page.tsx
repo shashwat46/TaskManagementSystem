@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import CreateTaskModal from "@/app/dashboard/tasks/CreateTaskModal";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+
 interface Task {
   id: string;
   title: string;
@@ -33,7 +35,7 @@ export default function TasksPage() {
           return;
         }
 
-        const response = await fetch("http://localhost:8080/api/tasks", {
+        const response = await fetch(`${API_URL}/api/tasks`, {
           headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
@@ -69,7 +71,7 @@ export default function TasksPage() {
     
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8080/api/tasks", {
+      const response = await fetch(`${API_URL}/api/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

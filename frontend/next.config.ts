@@ -1,13 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:8080/api/:path*'
-      }
-    ];
-  }
+  // Remove rewrites since we're using direct API URL
 };
 
 export default nextConfig;
