@@ -8,17 +8,24 @@ export default function LoginPage() {
   const router = useRouter();
 
   async function handleSubmit(formData: FormData) {
-    const result = await loginAction(formData);
-    
-    if (result.error) {
-      // Handle error (you can add state for error message)
-      console.error(result.error);
-      return;
-    }
+    try {
+      const result = await loginAction(formData);
+      console.log("Login response:", result); // Debug log
+      
+      if (result.error) {
+        console.error("Login error:", result.error);
+        return;
+      }
 
-    // Store token in localStorage
-    localStorage.setItem("token", result.token);
-    router.push("/dashboard");
+      if (result.token) {
+        console.log("Token received, storing..."); // Debug log
+        localStorage.setItem("token", result.token);
+        console.log("Redirecting to dashboard..."); // Debug log
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   }
 
   return (
