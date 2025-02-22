@@ -4,6 +4,16 @@
 - Frontend: [https://task-management-system-ecru.vercel.app/](https://task-management-system-ecru.vercel.app/)
 - Backend API: [https://taskmanagementsystem-production-8e99.up.railway.app](https://taskmanagementsystem-production-8e99.up.railway.app)
 
+## Video Demo
+<div>
+    <a href="https://www.loom.com/share/a1ba462658e74ed3a9f2d70dd798af12">
+      <p></p>
+    </a>
+    <a href="https://www.loom.com/share/a1ba462658e74ed3a9f2d70dd798af12">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/a1ba462658e74ed3a9f2d70dd798af12-667a68858f25e9fb-full-play.gif">
+    </a>
+</div>
+
 ## Deployment
 The application is deployed using:
 - Frontend: Vercel (Next.js optimized hosting)
@@ -215,5 +225,3 @@ Zocket
 │     ├─ tailwind.config.ts
 │     └─ tsconfig.json
 └─ test.go
-
-```
