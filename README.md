@@ -125,6 +125,16 @@ I focused on establishing a solid foundation with:
    - Server actions utilization
    - TypeScript integration
 
+## Environment Setup
+
+1. Copy `example.env` to `.env`
+2. Replace the placeholder values with your actual credentials:
+   - `DB_USER`: MongoDB username
+   - `DB_PASSWORD`: MongoDB password
+   - `MONGODB_URI`: Your MongoDB connection string
+   - `JWT_SECRET`: A secure random string for JWT signing
+   - `PORT`: The port number for the server (default: 8080)
+
 ## Additional Background
 
 I had a lot of fun making this, I'm a swift developer and have worked mostly with Node.js backends.This was a pretty new techstack for me and I loved working on this. I did all of this in 5 hours and I'm thankful to Zocket for giving out such an interesting problem statement.
