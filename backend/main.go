@@ -37,7 +37,7 @@ func main() {
     // Global Middleware
     app.Use(logger.New())
     app.Use(cors.New(cors.Config{
-        AllowOrigins: "*",
+        AllowOrigins: "https://task-management-system-ecru.vercel.app",
         AllowHeaders: "Origin, Content-Type, Accept, Authorization",
         AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
     }))
