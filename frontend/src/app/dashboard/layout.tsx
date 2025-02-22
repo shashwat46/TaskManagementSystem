@@ -58,7 +58,7 @@ export default function DashboardLayout({
               <button
                 onClick={() => {
                   localStorage.removeItem("token");
-                  router.push("/login");
+                  router.push("auth/login");
                 }}
                 className="text-gray-500 hover:text-gray-700"
               >
