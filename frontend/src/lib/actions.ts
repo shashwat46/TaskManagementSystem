@@ -44,10 +44,12 @@ export async function registerAction(formData: FormData) {
     });
 
     if (!response.ok) {
-      return { error: "Registration failed" };
+      const errorData = await response.text();
+      return { error: errorData || "Registration failed" };
     }
 
-    redirect("/login"); // Now redirect is properly imported
+    // On successful registration, return success
+    return { success: true };
   } catch (error) {
     return { error: "Something went wrong" };
   }
