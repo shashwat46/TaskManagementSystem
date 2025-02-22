@@ -2,6 +2,7 @@ package main
 
 import (
     "log"
+    "os"
     "github.com/gofiber/fiber/v2"
     "github.com/gofiber/fiber/v2/middleware/cors"
     "github.com/gofiber/fiber/v2/middleware/logger"
@@ -14,9 +15,15 @@ import (
 )
 
 func main() {
-    // Load .env file
+    // Load env variables
     if err := godotenv.Load(); err != nil {
-        log.Fatal("Error loading .env file")
+        log.Printf("Warning: .env file not found")
+    }
+
+    // Get PORT from environment with fallback
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080" // fallback port
     }
 
     // Connect to MongoDB
@@ -58,6 +65,6 @@ func main() {
     users.Get("/me", handlers.GetCurrentUser)
     users.Put("/me", handlers.UpdateUser)
 
-    // Start server
-    log.Fatal(app.Listen(":8080"))
+    // Start server with proper port format
+    log.Fatal(app.Listen(":" + port))
 }
